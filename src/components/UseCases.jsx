@@ -1,208 +1,138 @@
 import React from 'react';
-import { Car, Bus, Wrench, ShieldCheck, ArrowUpRight } from 'lucide-react';
+import { Database, DollarSign, FileCheck, Smartphone, ShieldCheck, Zap } from 'lucide-react';
 
-const CASES = [
-  {
-    icon: Car,
-    category: 'Repuestos de Autos Ligeros',
-    brands: 'Toyota, Nissan, Hyundai, Kia, Chevrolet, Suzuki',
-    title: 'Cotizaciones instantáneas de frenos, suspensión y motor',
-    desc: 'Los clientes suelen preguntar por compatibilidad de años y marcas de repuestos. El agente IA busca equivalencias en segundos y ofrece opciones original vs. alternativo.',
-    stat: '+38%',
-    statLabel: 'Tasa de conversión en cotizaciones'
-  },
-  {
-    icon: Bus,
-    category: 'Repuestos de Buses y Camiones',
-    brands: 'Volvo, Scania, Mercedes-Benz, International, Hino',
-    title: 'Ventas a flotas y mecánicos fuera de horario de oficina',
-    desc: 'Los choferes y dueños de buses necesitan repuestos de emergencia en carretera durante la noche o fines de semana. El chatbot toma el pedido 24/7 sin perder ventas.',
-    stat: '24/7',
-    statLabel: 'Atención continua para emergencias'
-  },
-  {
-    icon: Wrench,
-    category: 'Lubricentros y Multimarca',
-    brands: 'Aceites, Filtros, Baterías, Bujías, Fajas',
-    title: 'Combos de mantenimiento y reserva de pedidos',
-    desc: 'Ofrece kits automotrices automatizados (Aceite + Filtro + Bujías) recomendando la viscosidad adecuada según la marca y millaje del vehículo del cliente.',
-    stat: '-75%',
-    statLabel: 'Tiempo de espera del cliente'
-  }
-];
+export function UseCases({ onRequestDemo }) {
+  const cases = [
+    {
+      icon: <Database size={24} color="#0066FF" />,
+      title: "Control de Stock Automatizado",
+      desc: "El cliente consulta por modelos específicos (ej. SSD 1TB NVMe, RTX 4060, RAM DDR4) y el bot verifica existencias al instante.",
+    },
+    {
+      icon: <DollarSign size={24} color="#0066FF" />,
+      title: "Cotizaciones Rápidas de Precios",
+      desc: "Brinda precios transparentes, ofertas por liquidación y combinaciones de piezas para armar PCs a medida.",
+    },
+    {
+      icon: <FileCheck size={24} color="#0066FF" />,
+      title: "Registro directo de Pedidos",
+      desc: "Captura el pedido completo con datos del cliente y genera la alerta a tu equipo de despacho o sistema de ventas.",
+    },
+    {
+      icon: <Smartphone size={24} color="#0066FF" />,
+      title: "Multi-canal: WhatsApp & Web",
+      desc: "Funciona perfectamente integrado en tu número de WhatsApp Business y como widget interactivo en tu web e-commerce.",
+    },
+    {
+      icon: <Zap size={24} color="#0066FF" />,
+      title: "Cero Tiempo de Espera",
+      desc: "Tus clientes no tienen que esperar a que un vendedor quede libre para saber si un componente está disponible.",
+    },
+    {
+      icon: <ShieldCheck size={24} color="#0066FF" />,
+      title: "Customización 100% a tu Medida",
+      desc: "Entrenamos al chatbot con el catálogo, políticas y marcas de tu propia tienda de tecnología.",
+    },
+  ];
 
-export default function UseCases({ onOpenDemoModal }) {
   return (
-    <section className="cases-section section" id="casos-de-uso">
-      <div className="container">
-        <div className="section-header text-center">
-          <span className="section-subtitle">CASOS DE USO REALES</span>
-          <h2 className="section-title">Adaptado exactamente a tu rubro automotriz</h2>
-          <p className="section-desc">
-            Diseñado específicamente para resolver la complejidad de códigos, marcas y compatibilidades del sector repuestos.
+    <section
+      id="casos-de-uso"
+      style={{
+        padding: '90px 24px',
+        backgroundColor: '#FFFFFF',
+        color: '#0F172A',
+      }}
+    >
+      <div style={{ maxWidth: '1240px', margin: '0 auto' }}>
+        <div style={{ textAlign: 'center', maxWidth: '750px', margin: '0 auto 60px' }}>
+          <div
+            style={{
+              color: '#0066FF',
+              fontSize: '13px',
+              fontWeight: 800,
+              letterSpacing: '1px',
+              textTransform: 'uppercase',
+              marginBottom: '10px',
+            }}
+          >
+            CASOS DE USO Y BENEFICIOS
+          </div>
+          <h2 style={{ fontSize: '36px', fontWeight: 800, color: '#0F172A', marginBottom: '16px' }}>
+            Diseñado específicamente para el sector cómputo
+          </h2>
+          <p style={{ fontSize: '16px', color: '#64748B', lineHeight: 1.6 }}>
+            Optimiza el flujo de ventas de tu negocio con funciones creadas para resolver las consultas más frecuentes de compradores de tecnología.
           </p>
         </div>
 
-        <div className="cases-grid">
-          {CASES.map((item, idx) => {
-            const IconC = item.icon;
-            return (
-              <div key={idx} className="case-card">
-                <div className="case-header">
-                  <div className="case-icon-box">
-                    <IconC size={26} />
-                  </div>
-                  <div>
-                    <span className="case-category">{item.category}</span>
-                    <span className="case-brands">{item.brands}</span>
-                  </div>
-                </div>
-
-                <h3 className="case-title">{item.title}</h3>
-                <p className="case-desc">{item.desc}</p>
-
-                <div className="case-footer">
-                  <div className="case-stat-group">
-                    <span className="case-stat-val">{item.stat}</span>
-                    <span className="case-stat-lbl">{item.statLabel}</span>
-                  </div>
-                  <button onClick={onOpenDemoModal} className="case-btn-demo">
-                    <span>Demo</span>
-                    <ArrowUpRight size={16} />
-                  </button>
-                </div>
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(3, 1fr)',
+            gap: '24px',
+          }}
+          className="cases-grid"
+        >
+          {cases.map((c, i) => (
+            <div
+              key={i}
+              style={{
+                background: '#F8FAFC',
+                border: '1px solid #E2E8F0',
+                borderRadius: '16px',
+                padding: '28px',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '16px',
+                transition: 'transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'translateY(-4px)';
+                e.currentTarget.style.borderColor = '#0066FF';
+                e.currentTarget.style.boxShadow = '0 10px 24px rgba(0,102,255,0.08)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.borderColor = '#E2E8F0';
+                e.currentTarget.style.boxShadow = 'none';
+              }}
+            >
+              <div
+                style={{
+                  width: '48px',
+                  height: '48px',
+                  borderRadius: '12px',
+                  background: '#EBF3FF',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                {c.icon}
               </div>
-            );
-          })}
+              <div>
+                <h3 style={{ fontSize: '18px', fontWeight: 700, color: '#0F172A', marginBottom: '8px' }}>
+                  {c.title}
+                </h3>
+                <p style={{ fontSize: '14px', color: '#64748B', lineHeight: 1.5 }}>
+                  {c.desc}
+                </p>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
 
       <style>{`
-        .cases-section {
-          background: #ffffff;
-        }
-
-        .cases-grid {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 1.5rem;
-        }
-
-        .case-card {
-          background: #f8fafc;
-          border: 1px solid #e2e8f0;
-          border-radius: var(--radius-lg);
-          padding: 2rem 1.5rem;
-          display: flex;
-          flex-direction: column;
-          transition: all 0.3s ease;
-        }
-
-        .case-card:hover {
-          transform: translateY(-4px);
-          border-color: #0284c7;
-          box-shadow: 0 20px 30px -10px rgba(2, 132, 199, 0.15);
-        }
-
-        .case-header {
-          display: flex;
-          align-items: center;
-          gap: 1rem;
-          margin-bottom: 1.25rem;
-        }
-
-        .case-icon-box {
-          width: 50px;
-          height: 50px;
-          border-radius: 14px;
-          background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
-          color: #ffffff;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          flex-shrink: 0;
-          box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
-        }
-
-        .case-category {
-          display: block;
-          font-weight: 700;
-          font-size: 1.05rem;
-          color: #0f172a;
-        }
-
-        .case-brands {
-          display: block;
-          font-size: 0.78rem;
-          color: #0284c7;
-          font-weight: 600;
-        }
-
-        .case-title {
-          font-size: 1.15rem;
-          font-weight: 700;
-          color: #0f172a;
-          line-height: 1.35;
-          margin-bottom: 0.75rem;
-        }
-
-        .case-desc {
-          font-size: 0.9rem;
-          color: #64748b;
-          line-height: 1.55;
-          flex: 1;
-        }
-
-        .case-footer {
-          margin-top: 1.5rem;
-          padding-top: 1rem;
-          border-top: 1px solid #e2e8f0;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-        }
-
-        .case-stat-group {
-          display: flex;
-          flex-direction: column;
-        }
-
-        .case-stat-val {
-          font-size: 1.35rem;
-          font-weight: 800;
-          color: #0284c7;
-          line-height: 1;
-        }
-
-        .case-stat-lbl {
-          font-size: 0.72rem;
-          color: #64748b;
-          margin-top: 2px;
-        }
-
-        .case-btn-demo {
-          background: #e0f2fe;
-          color: #0284c7;
-          border: none;
-          padding: 0.45rem 0.85rem;
-          border-radius: var(--radius-full);
-          font-weight: 700;
-          font-size: 0.82rem;
-          cursor: pointer;
-          display: flex;
-          align-items: center;
-          gap: 4px;
-          transition: all 0.2s ease;
-        }
-
-        .case-btn-demo:hover {
-          background: #0284c7;
-          color: #ffffff;
-        }
-
-        @media (max-width: 992px) {
+        @media (max-width: 900px) {
           .cases-grid {
-            grid-template-columns: 1fr;
+            grid-template-columns: repeat(2, 1fr) !important;
+          }
+        }
+        @media (max-width: 600px) {
+          .cases-grid {
+            grid-template-columns: 1fr !important;
           }
         }
       `}</style>

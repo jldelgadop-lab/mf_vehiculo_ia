@@ -1,169 +1,202 @@
 import React from 'react';
-import { MessageSquare, Brain, ShoppingCart, TrendingUp, ArrowRight } from 'lucide-react';
+import { MessageSquare, Cpu, ShoppingCart, TrendingUp, ChevronRight } from 'lucide-react';
 
-const STEPS_DATA = [
-  {
-    step: '1',
-    icon: MessageSquare,
-    title: '1. El cliente pregunta',
-    description: 'El cliente escribe por WhatsApp o web consultando por un repuesto (marca, modelo, año, OEM), precio o disponibilidad.'
-  },
-  {
-    step: '2',
-    icon: Brain,
-    title: '2. El agente IA responde',
-    description: 'En 3 segundos, el agente consulta tu inventario de repuestos y responde con precio exacto, marca y stock disponible.'
-  },
-  {
-    step: '3',
-    icon: ShoppingCart,
-    title: '3. Se confirma el pedido',
-    description: 'El agente solicita los datos de envío, valida la forma de pago y emite la confirmación del pedido de repuestos.'
-  },
-  {
-    step: '4',
-    icon: TrendingUp,
-    title: '4. Tú haces crecer tu negocio',
-    description: 'Ganas más ventas en horario no laboral, atiendes instantáneamente y fidelizas a tus clientes del rubro automotriz.'
-  }
-];
+export function HowItWorks() {
+  const steps = [
+    {
+      number: 1,
+      icon: <MessageSquare size={28} color="#0066FF" />,
+      title: 'El cliente consulta',
+      description: 'El cliente pregunta por productos, precios, stock o disponibilidad.',
+      bgColor: '#EBF3FF',
+    },
+    {
+      number: 2,
+      icon: <Cpu size={28} color="#0066FF" />,
+      title: 'El agente IA responde',
+      description: 'Usa la información de tu catálogo y stock en tiempo real.',
+      bgColor: '#EBF3FF',
+    },
+    {
+      number: 3,
+      icon: <ShoppingCart size={28} color="#0066FF" />,
+      title: 'Registra el pedido',
+      description: 'Si el cliente decide comprar, el agente registra el pedido y te notifica.',
+      bgColor: '#EBF3FF',
+    },
+    {
+      number: 4,
+      icon: <TrendingUp size={28} color="#0066FF" />,
+      title: 'Tú haces crecer tu negocio',
+      description: 'Más clientes, más ventas y mejor experiencia de compra.',
+      bgColor: '#EBF3FF',
+    },
+  ];
 
-export default function HowItWorks() {
   return (
-    <section className="how-section section" id="como-funciona">
-      <div className="container">
-        <div className="section-header text-center">
-          <span className="section-subtitle">EN SOLO 4 PASOS</span>
-          <h2 className="section-title">Cómo funciona</h2>
-          <p className="section-desc">
-            Implementar el agente IA en tu tienda de repuestos es rápido, sin complicaciones y compatible con tu catálogo existente.
+    <section
+      id="como-funciona"
+      style={{
+        padding: '90px 24px',
+        backgroundColor: '#FFFFFF',
+        color: '#0F172A',
+      }}
+    >
+      <div
+        style={{
+          maxWidth: '1240px',
+          margin: '0 auto',
+        }}
+      >
+        {/* Section Header */}
+        <div style={{ textAlign: 'center', maxWidth: '750px', margin: '0 auto 60px' }}>
+          <div
+            style={{
+              color: '#0066FF',
+              fontSize: '13px',
+              fontWeight: 800,
+              letterSpacing: '1px',
+              textTransform: 'uppercase',
+              marginBottom: '10px',
+            }}
+          >
+            ¿CÓMO FUNCIONA?
+          </div>
+          <h2
+            style={{
+              fontSize: '36px',
+              fontWeight: 800,
+              color: '#0F172A',
+              marginBottom: '16px',
+              letterSpacing: '-0.5px',
+            }}
+          >
+            Un agente IA que trabaja por ti
+          </h2>
+          <p
+            style={{
+              fontSize: '17px',
+              color: '#475569',
+              lineHeight: 1.6,
+            }}
+          >
+            Se integra a tu web, WhatsApp o tienda online y se encarga de atender, informar y registrar pedidos de forma automática.
           </p>
         </div>
 
-        {/* 4 Steps Row */}
-        <div className="steps-wrapper">
-          {STEPS_DATA.map((item, idx) => {
-            const IconComp = item.icon;
-            return (
-              <React.Fragment key={idx}>
-                <div className="step-card">
-                  <div className="step-badge">{item.step}</div>
-                  <div className="step-icon-box">
-                    <IconComp size={30} />
-                  </div>
-                  <h3 className="step-title">{item.title}</h3>
-                  <p className="step-desc">{item.description}</p>
+        {/* 4 Steps Process Flow */}
+        <div
+          className="steps-container"
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(4, 1fr)',
+            gap: '20px',
+            position: 'relative',
+            alignItems: 'stretch',
+          }}
+        >
+          {steps.map((step, index) => (
+            <React.Fragment key={step.number}>
+              <div
+                style={{
+                  background: '#F8FAFC',
+                  border: '1px solid #E2E8F0',
+                  borderRadius: '20px',
+                  padding: '32px 24px 28px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  textAlign: 'center',
+                  position: 'relative',
+                  transition: 'transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-6px)';
+                  e.currentTarget.style.boxShadow = '0 12px 28px rgba(0, 102, 255, 0.12)';
+                  e.currentTarget.style.borderColor = '#0066FF';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.boxShadow = 'none';
+                  e.currentTarget.style.borderColor = '#E2E8F0';
+                }}
+              >
+                {/* Numbered Badge */}
+                <div
+                  style={{
+                    position: 'absolute',
+                    top: '-16px',
+                    left: '24px',
+                    width: '32px',
+                    height: '32px',
+                    borderRadius: '50%',
+                    background: '#0066FF',
+                    color: '#FFFFFF',
+                    fontWeight: 800,
+                    fontSize: '14px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    boxShadow: '0 4px 10px rgba(0, 102, 255, 0.4)',
+                  }}
+                >
+                  {step.number}
                 </div>
 
-                {idx < STEPS_DATA.length - 1 && (
-                  <div className="step-arrow">
-                    <ArrowRight size={24} />
-                  </div>
-                )}
-              </React.Fragment>
-            );
-          })}
+                {/* Icon Circle */}
+                <div
+                  style={{
+                    width: '72px',
+                    height: '72px',
+                    borderRadius: '50%',
+                    background: step.bgColor,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    marginBottom: '20px',
+                    marginTop: '8px',
+                  }}
+                >
+                  {step.icon}
+                </div>
+
+                {/* Title */}
+                <h3
+                  style={{
+                    fontSize: '18px',
+                    fontWeight: 700,
+                    color: '#0F172A',
+                    marginBottom: '10px',
+                  }}
+                >
+                  {step.title}
+                </h3>
+
+                {/* Description */}
+                <p
+                  style={{
+                    fontSize: '14px',
+                    color: '#64748B',
+                    lineHeight: 1.5,
+                  }}
+                >
+                  {step.description}
+                </p>
+              </div>
+            </React.Fragment>
+          ))}
         </div>
       </div>
 
       <style>{`
-        .how-section {
-          background: #f8fafc;
-          border-top: 1px solid #e2e8f0;
-          border-bottom: 1px solid #e2e8f0;
-        }
-
-        .steps-wrapper {
-          display: flex;
-          align-items: flex-start;
-          justify-content: space-between;
-          gap: 1rem;
-          margin-top: 2rem;
-        }
-
-        .step-card {
-          flex: 1;
-          background: #ffffff;
-          border: 1px solid #e2e8f0;
-          border-radius: var(--radius-lg);
-          padding: 2rem 1.25rem;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          text-align: center;
-          position: relative;
-          box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-          transition: all 0.3s ease;
-        }
-
-        .step-card:hover {
-          transform: translateY(-4px);
-          box-shadow: 0 15px 30px rgba(2, 132, 199, 0.12);
-          border-color: #0284c7;
-        }
-
-        .step-badge {
-          position: absolute;
-          top: -14px;
-          left: 50%;
-          transform: translateX(-50%);
-          width: 28px;
-          height: 28px;
-          border-radius: 50%;
-          background: #0284c7;
-          color: #ffffff;
-          font-weight: 800;
-          font-size: 0.85rem;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          box-shadow: 0 4px 10px rgba(2, 132, 199, 0.4);
-        }
-
-        .step-icon-box {
-          width: 64px;
-          height: 64px;
-          border-radius: 18px;
-          background: #e0f2fe;
-          color: #0284c7;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          margin-top: 0.5rem;
-          margin-bottom: 1.25rem;
-        }
-
-        .step-title {
-          font-size: 1.15rem;
-          font-weight: 700;
-          color: #0f172a;
-          margin-bottom: 0.65rem;
-        }
-
-        .step-desc {
-          font-size: 0.88rem;
-          color: #64748b;
-          line-height: 1.55;
-        }
-
-        .step-arrow {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: #94a3b8;
-          padding-top: 5rem;
-          flex-shrink: 0;
-        }
-
         @media (max-width: 992px) {
-          .steps-wrapper {
-            flex-direction: column;
-            gap: 2rem;
+          .steps-container {
+            grid-template-columns: repeat(2, 1fr) !important;
           }
-          .step-arrow {
-            transform: rotate(90deg);
-            padding-top: 0;
-            margin: 0 auto;
+        }
+        @media (max-width: 576px) {
+          .steps-container {
+            grid-template-columns: 1fr !important;
           }
         }
       `}</style>

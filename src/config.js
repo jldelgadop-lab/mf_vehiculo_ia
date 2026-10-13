@@ -1,6 +1,6 @@
 // Configuración principal de la Landing Page
 export const CONFIG = {
-  appName: "AI Sales Agent",
+  appName: "Agentika",
   appSubtitle: "para tu Tienda de Computadoras",
   
   // URL por defecto de YouTube para el video de demostración.

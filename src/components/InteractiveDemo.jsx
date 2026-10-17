@@ -51,6 +51,8 @@ export function InteractiveDemo({ onRequestDemo }) {
         botResponse = `¡Claro! Disponemos de la ${prod.name}.\n💰 Precio: ${prod.price}\n📦 Stock: ${prod.stock} kits disponibles.\n⚙️ Specs: ${prod.specs}.`;
       } else if (lower.includes('pedido') || lower.includes('comprar')) {
         botResponse = `¡Perfecto! 📦 He registrado tu solicitud de pedido temporal.\n\nPara confirmar los datos de envío y emisión de comprobante, te derivaré con un asesor o registraré tu compra automáticamente.\n\n✨ Así es como respondería con tu propio catálogo en tiempo real.`;
+      } else if (lower.includes('telefono') || lower.includes('teléfono') || lower.includes('llamar') || lower.includes('contacto') || lower.includes('celular') || lower.includes('925')) {
+        botResponse = `¡Con gusto! 📞 Puedes llamar o escribir directamente a Agentika al ${CONFIG.displayPhone} para cualquier consulta técnica o para agendar una demo en vivo personalizada.`;
       } else {
         botResponse = `¡Con gusto te ayudo! Como Agente IA de tu tienda, puedo revisar automáticamente el stock de cualquier producto, brindar precios actualizados y tomar el pedido de tu cliente en segundos. ⚡`;
       }

@@ -8,8 +8,12 @@ export const CONFIG = {
   // El cliente podrá actualizar esta URL fácilmente desde la interfaz o en este archivo.
   defaultYoutubeUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=0", 
 
-  contactPhone: "+51 987 654 321",
+  contactPhone: "+51 925 304 363",
+  displayPhone: "925 304 363",
+  phoneTel: "tel:+51925304363",
+  whatsappUrl: "https://wa.me/51925304363?text=Hola%20Agentika,%20deseo%20hacer%20una%20consulta%20o%20pedir%20una%20demo",
   contactEmail: "contacto@aisalesagent.com",
+  leadRecipientEmail: "jldelgadop@gmail.com",
   
   // Catálogo de productos de muestra para el simulador de chat interactivo
   sampleProducts: [

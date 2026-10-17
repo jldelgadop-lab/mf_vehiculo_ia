@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Phone } from 'lucide-react';
 import { CONFIG } from './config';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
@@ -29,7 +30,7 @@ export function App() {
   };
 
   const handleFormSubmitSuccess = (data) => {
-    showToast(`¡Gracias ${data.nombre}! Tu solicitud ha sido registrada correctamente.`);
+    showToast(`¡Gracias ${data.nombre}! Tu solicitud ha sido registrada y enviada a nuestro equipo.`);
   };
 
   return (
@@ -107,6 +108,66 @@ export function App() {
           onSubmitSuccess={handleFormSubmitSuccess}
         />
       )}
+
+      {/* Floating Direct Call & Inquiry Button */}
+      <div
+        style={{
+          position: 'fixed',
+          bottom: '24px',
+          right: '24px',
+          zIndex: 990,
+        }}
+      >
+        <a
+          href={CONFIG.phoneTel}
+          title={`Llamar directamente a ${CONFIG.appName} al ${CONFIG.displayPhone}`}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '10px',
+            background: 'linear-gradient(135deg, #059669 0%, #10B981 100%)',
+            color: '#FFFFFF',
+            padding: '12px 20px',
+            borderRadius: '9999px',
+            textDecoration: 'none',
+            fontWeight: 700,
+            fontSize: '14px',
+            boxShadow: '0 8px 24px rgba(16, 185, 129, 0.45), 0 2px 8px rgba(0,0,0,0.1)',
+            transition: 'all 0.3s ease',
+          }}
+          className="floating-call-btn"
+          onMouseEnter={(e) => {
+            e.currentTarget.style.transform = 'translateY(-3px) scale(1.03)';
+            e.currentTarget.style.boxShadow = '0 12px 28px rgba(16, 185, 129, 0.6)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform = 'translateY(0) scale(1)';
+            e.currentTarget.style.boxShadow = '0 8px 24px rgba(16, 185, 129, 0.45)';
+          }}
+        >
+          <div
+            style={{
+              width: '26px',
+              height: '26px',
+              borderRadius: '50%',
+              backgroundColor: 'rgba(255, 255, 255, 0.25)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <Phone size={15} />
+          </div>
+          <span style={{ display: 'flex', flexDirection: 'column', lineHeight: 1.15 }}>
+            <span style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.5px', opacity: 0.9 }}>
+              ¿Consultas o Demo?
+            </span>
+            <span style={{ fontSize: '14px', fontWeight: 800 }}>
+              {CONFIG.displayPhone}
+            </span>
+          </span>
+        </a>
+      </div>
     </div>
   );
 }

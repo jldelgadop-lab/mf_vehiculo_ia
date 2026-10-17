@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Bot, Menu, X, Sparkles } from 'lucide-react';
+import { Bot, Menu, X, Sparkles, Phone } from 'lucide-react';
 import { CONFIG } from '../config';
 
 export function Header({ onRequestDemo }) {
@@ -136,7 +136,62 @@ export function Header({ onRequestDemo }) {
         </nav>
 
         {/* CTA Button Desktop */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          {/* Direct Phone Call Link */}
+          <a
+            href={CONFIG.phoneTel}
+            title={`Llamar directamente a ${CONFIG.appName} al ${CONFIG.displayPhone}`}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              backgroundColor: 'rgba(16, 185, 129, 0.12)',
+              border: '1px solid rgba(16, 185, 129, 0.35)',
+              color: '#FFFFFF',
+              padding: '9px 16px',
+              borderRadius: '9999px',
+              textDecoration: 'none',
+              transition: 'all 0.25s ease',
+            }}
+            className="header-phone-btn"
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = 'rgba(16, 185, 129, 0.25)';
+              e.currentTarget.style.borderColor = '#10B981';
+              e.currentTarget.style.transform = 'translateY(-1px)';
+              e.currentTarget.style.boxShadow = '0 4px 14px rgba(16, 185, 129, 0.3)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = 'rgba(16, 185, 129, 0.12)';
+              e.currentTarget.style.borderColor = 'rgba(16, 185, 129, 0.35)';
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.boxShadow = 'none';
+            }}
+          >
+            <div
+              style={{
+                width: '24px',
+                height: '24px',
+                borderRadius: '50%',
+                backgroundColor: '#10B981',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: '#FFFFFF',
+                flexShrink: 0,
+              }}
+            >
+              <Phone size={13} />
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1.1 }}>
+              <span style={{ fontSize: '10px', color: '#6EE7B7', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.4px' }}>
+                Llamar a Agentika
+              </span>
+              <span style={{ fontSize: '13px', fontWeight: 700, color: '#FFFFFF', letterSpacing: '0.3px' }}>
+                {CONFIG.displayPhone}
+              </span>
+            </div>
+          </a>
+
           <button
             onClick={onRequestDemo}
             style={{
@@ -144,13 +199,16 @@ export function Header({ onRequestDemo }) {
               color: '#FFFFFF',
               fontWeight: 700,
               fontSize: '14px',
-              padding: '12px 24px',
+              padding: '12px 22px',
               borderRadius: '9999px',
               boxShadow: '0 4px 18px rgba(0, 102, 255, 0.4)',
               transition: 'all 0.25s ease',
               display: 'flex',
               alignItems: 'center',
               gap: '8px',
+              border: 'none',
+              cursor: 'pointer',
+              whiteSpace: 'nowrap',
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.transform = 'translateY(-2px)';
@@ -214,11 +272,35 @@ export function Header({ onRequestDemo }) {
                 fontWeight: 600,
                 textAlign: 'left',
                 padding: '8px 0',
+                cursor: 'pointer',
               }}
             >
               {item.label}
             </button>
           ))}
+
+          {/* Direct call option in mobile menu */}
+          <a
+            href={CONFIG.phoneTel}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '10px',
+              background: 'rgba(16, 185, 129, 0.18)',
+              border: '1px solid #10B981',
+              color: '#34D399',
+              padding: '12px',
+              borderRadius: '12px',
+              fontWeight: 700,
+              fontSize: '15px',
+              textDecoration: 'none',
+            }}
+          >
+            <Phone size={18} />
+            Llamar a Agentika: {CONFIG.displayPhone}
+          </a>
+
           <button
             onClick={() => {
               setMobileMenuOpen(false);
@@ -231,9 +313,11 @@ export function Header({ onRequestDemo }) {
               fontSize: '15px',
               padding: '14px',
               borderRadius: '12px',
-              marginTop: '8px',
+              marginTop: '4px',
               width: '100%',
               textAlign: 'center',
+              border: 'none',
+              cursor: 'pointer',
             }}
           >
             Solicitar una Demo
@@ -242,12 +326,25 @@ export function Header({ onRequestDemo }) {
       )}
 
       <style>{`
+        @media (max-width: 1050px) {
+          .desktop-nav {
+            gap: 16px !important;
+          }
+        }
         @media (max-width: 900px) {
           .desktop-nav {
             display: none !important;
           }
           .mobile-toggle {
             display: block !important;
+          }
+        }
+        @media (max-width: 540px) {
+          .header-phone-btn {
+            padding: 8px 10px !important;
+          }
+          .header-phone-btn div:nth-child(2) {
+            display: none !important;
           }
         }
       `}</style>

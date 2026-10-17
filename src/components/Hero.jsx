@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import { 
-  Clock, Zap, TrendingUp, Play, User, Mail, Phone, Building, 
+import {
+  Clock, Zap, TrendingUp, Play, User, Mail, Phone, Building,
   Lock, CheckCircle, Bot, MessageSquare, Send, Sparkles, Settings
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
+import { CONFIG } from '../config';
+import { sendLeadEmail } from '../services/leadService';
 
 export function Hero({ youtubeUrl, onChangeYoutubeUrl, onSubmitFormSuccess }) {
   const [formData, setFormData] = useState({
@@ -12,7 +14,7 @@ export function Hero({ youtubeUrl, onChangeYoutubeUrl, onSubmitFormSuccess }) {
     telefono: '',
     empresa: ''
   });
-  
+
   const [isPlaying, setIsPlaying] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -21,7 +23,7 @@ export function Hero({ youtubeUrl, onChangeYoutubeUrl, onSubmitFormSuccess }) {
   const getEmbedUrl = (url) => {
     if (!url) return 'https://www.youtube.com/embed/dQw4w9WgXcQ';
     if (url.includes('embed/')) return url;
-    
+
     // Handle standard youtube links
     const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
     const match = url.match(regExp);
@@ -36,7 +38,7 @@ export function Hero({ youtubeUrl, onChangeYoutubeUrl, onSubmitFormSuccess }) {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.nombre || !formData.email || !formData.telefono) {
       alert('Por favor completa todos los campos requeridos.');
@@ -44,24 +46,29 @@ export function Hero({ youtubeUrl, onChangeYoutubeUrl, onSubmitFormSuccess }) {
     }
 
     setIsSubmitting(true);
-    
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setSubmitted(true);
 
-      // Trigger high energy confetti effect
-      try {
-        confetti({
-          particleCount: 120,
-          spread: 70,
-          origin: { y: 0.6 }
-        });
-      } catch (err) {
-        console.log(err);
-      }
+    try {
+      // Enviar datos del lead al correo jldelgadop@gmail.com
+      await sendLeadEmail(formData);
+    } catch (err) {
+      console.error('Error enviando formulario:', err);
+    }
 
-      onSubmitFormSuccess(formData);
-    }, 800);
+    setIsSubmitting(false);
+    setSubmitted(true);
+
+    // Trigger high energy confetti effect
+    try {
+      confetti({
+        particleCount: 120,
+        spread: 70,
+        origin: { y: 0.6 }
+      });
+    } catch (err) {
+      console.log(err);
+    }
+
+    onSubmitFormSuccess(formData);
   };
 
   return (
@@ -255,6 +262,61 @@ export function Hero({ youtubeUrl, onChangeYoutubeUrl, onSubmitFormSuccess }) {
                 <div>
                   <div style={{ fontWeight: 700, fontSize: '13px', color: '#FFFFFF' }}>Más ventas y clientes</div>
                   <div style={{ fontSize: '12px', color: '#94A3B8' }}>Mayor conversión</div>
+                </div>
+              </div>
+            </div>
+
+            {/* Direct Phone Call Badge in Hero */}
+            <div
+              style={{
+                marginTop: '28px',
+                padding: '14px 18px',
+                background: 'rgba(255, 255, 255, 0.05)',
+                border: '1px solid rgba(255, 255, 255, 0.1)',
+                borderRadius: '16px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '14px',
+                backdropFilter: 'blur(8px)',
+              }}
+            >
+              <div
+                style={{
+                  width: '40px',
+                  height: '40px',
+                  borderRadius: '12px',
+                  background: 'rgba(16, 185, 129, 0.18)',
+                  border: '1px solid rgba(16, 185, 129, 0.35)',
+                  color: '#34D399',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flexShrink: 0,
+                }}
+              >
+                <Phone size={20} />
+              </div>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontSize: '11px', color: '#94A3B8', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.4px' }}>
+                  ¿Deseas consultar o pedir una demo directa?
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '2px', flexWrap: 'wrap' }}>
+                  <span style={{ fontSize: '13px', color: '#E2E8F0', fontWeight: 500 }}>Llámanos al:</span>
+                  <a
+                    href={CONFIG.phoneTel}
+                    style={{
+                      color: '#38BDF8',
+                      fontWeight: 800,
+                      fontSize: '15px',
+                      textDecoration: 'none',
+                      letterSpacing: '0.3px',
+                      transition: 'color 0.2s ease',
+                    }}
+                    onMouseEnter={(e) => (e.target.style.color = '#FFFFFF')}
+                    onMouseLeave={(e) => (e.target.style.color = '#38BDF8')}
+                  >
+                    {CONFIG.displayPhone}
+                  </a>
                 </div>
               </div>
             </div>
@@ -590,7 +652,7 @@ export function Hero({ youtubeUrl, onChangeYoutubeUrl, onSubmitFormSuccess }) {
                 Solicita una Demo
               </h3>
             </div>
-            
+
             <p style={{ fontSize: '13px', color: '#64748B', marginBottom: '20px', lineHeight: 1.4 }}>
               Conoce cómo este Agente IA puede adaptarse a tu negocio y catálogo de cómputo.
             </p>
@@ -610,12 +672,18 @@ export function Hero({ youtubeUrl, onChangeYoutubeUrl, onSubmitFormSuccess }) {
                   ¡Solicitud Enviada!
                 </h4>
                 <p style={{ fontSize: '13px', color: '#047857', lineHeight: 1.5 }}>
-                  Gracias <strong>{formData.nombre}</strong>. Nos pondremos en contacto contigo en menos de 24 horas para agendar la demo personalizada para <strong>{formData.empresa || 'tu tienda'}</strong>.
+                  Gracias <strong>{formData.nombre}</strong>. Hemos recibido tu solicitud y se ha enviado la notificación a nuestro equipo para agendar la demo personalizada para <strong>{formData.empresa || 'tu tienda'}</strong>.
                 </p>
+                <div style={{ marginTop: '14px', paddingTop: '12px', borderTop: '1px solid #A7F3D0', fontSize: '12px', color: '#065F46' }}>
+                  ¿Prefieres atención inmediata?{' '}
+                  <a href={CONFIG.phoneTel} style={{ color: '#047857', fontWeight: 800, textDecoration: 'underline' }}>
+                    Llámanos al {CONFIG.displayPhone}
+                  </a>
+                </div>
                 <button
                   onClick={() => setSubmitted(false)}
                   style={{
-                    marginTop: '16px',
+                    marginTop: '12px',
                     background: 'none',
                     border: 'none',
                     color: '#0066FF',
@@ -702,7 +770,7 @@ export function Hero({ youtubeUrl, onChangeYoutubeUrl, onSubmitFormSuccess }) {
                       name="telefono"
                       value={formData.telefono}
                       onChange={handleInputChange}
-                      placeholder="+51 987 654 321"
+                      placeholder="+51 925 304 363"
                       required
                       style={{
                         width: '100%',
@@ -767,18 +835,25 @@ export function Hero({ youtubeUrl, onChangeYoutubeUrl, onSubmitFormSuccess }) {
                     alignItems: 'center',
                     justifyContent: 'center',
                     gap: '8px',
+                    border: 'none',
+                    cursor: isSubmitting ? 'not-allowed' : 'pointer',
+                    opacity: isSubmitting ? 0.8 : 1,
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = 'translateY(-2px)';
-                    e.currentTarget.style.boxShadow = '0 6px 20px rgba(0, 102, 255, 0.6)';
+                    if (!isSubmitting) {
+                      e.currentTarget.style.transform = 'translateY(-2px)';
+                      e.currentTarget.style.boxShadow = '0 6px 20px rgba(0, 102, 255, 0.6)';
+                    }
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = 'translateY(0)';
-                    e.currentTarget.style.boxShadow = '0 4px 16px rgba(0, 102, 255, 0.4)';
+                    if (!isSubmitting) {
+                      e.currentTarget.style.transform = 'translateY(0)';
+                      e.currentTarget.style.boxShadow = '0 4px 16px rgba(0, 102, 255, 0.4)';
+                    }
                   }}
                 >
                   {isSubmitting ? (
-                    'Procesando...'
+                    'Enviando solicitud...'
                   ) : (
                     <>
                       Quiero una Demo
@@ -801,6 +876,51 @@ export function Hero({ youtubeUrl, onChangeYoutubeUrl, onSubmitFormSuccess }) {
                 >
                   <Lock size={14} color="#10B981" />
                   Tus datos están seguros y protegidos.
+                </div>
+
+                {/* Direct Phone / Call-in Option */}
+                <div
+                  style={{
+                    marginTop: '14px',
+                    paddingTop: '12px',
+                    borderTop: '1px solid #E2E8F0',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    gap: '6px',
+                  }}
+                >
+                  <span style={{ fontSize: '11px', color: '#64748B', fontWeight: 600 }}>
+                    ¿Deseas una consulta inmediata o pedir tu demo por teléfono?
+                  </span>
+                  <a
+                    href={CONFIG.phoneTel}
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                      background: '#F0FDF4',
+                      border: '1px solid #86EFAC',
+                      color: '#15803D',
+                      fontWeight: 700,
+                      fontSize: '13px',
+                      padding: '8px 16px',
+                      borderRadius: '8px',
+                      textDecoration: 'none',
+                      transition: 'all 0.2s ease',
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.background = '#15803D';
+                      e.currentTarget.style.color = '#FFFFFF';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.background = '#F0FDF4';
+                      e.currentTarget.style.color = '#15803D';
+                    }}
+                  >
+                    <Phone size={14} />
+                    Llamar directamente: {CONFIG.displayPhone}
+                  </a>
                 </div>
               </form>
             )}

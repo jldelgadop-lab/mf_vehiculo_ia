@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { X, Sparkles, User, Mail, Phone, Building, Send, CheckCircle2, Lock } from 'lucide-react';
 import confetti from 'canvas-confetti';
+import { CONFIG } from '../config';
+import { sendLeadEmail } from '../services/leadService';
 
 export function DemoModal({ onClose, onSubmitSuccess }) {
   const [formData, setFormData] = useState({
@@ -13,7 +15,7 @@ export function DemoModal({ onClose, onSubmitSuccess }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.nombre || !formData.email || !formData.telefono) {
       alert('Por favor completa los campos requeridos.');
@@ -21,22 +23,28 @@ export function DemoModal({ onClose, onSubmitSuccess }) {
     }
 
     setIsSubmitting(true);
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setSubmitted(true);
 
-      try {
-        confetti({
-          particleCount: 100,
-          spread: 70,
-          origin: { y: 0.6 }
-        });
-      } catch (err) {
-        console.log(err);
-      }
+    try {
+      // Enviar datos del lead al correo jldelgadop@gmail.com
+      await sendLeadEmail(formData);
+    } catch (err) {
+      console.error('Error enviando formulario:', err);
+    }
 
-      onSubmitSuccess(formData);
-    }, 700);
+    setIsSubmitting(false);
+    setSubmitted(true);
+
+    try {
+      confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 }
+      });
+    } catch (err) {
+      console.log(err);
+    }
+
+    onSubmitSuccess(formData);
   };
 
   return (
@@ -81,9 +89,15 @@ export function DemoModal({ onClose, onSubmitSuccess }) {
             <h3 style={{ fontSize: '22px', fontWeight: 800, color: '#0F172A', marginBottom: '8px' }}>
               ¡Solicitud de Demo Recibida!
             </h3>
-            <p style={{ fontSize: '14px', color: '#64748B', lineHeight: 1.6, marginBottom: '24px' }}>
-              Gracias <strong>{formData.nombre}</strong>. Nos pondremos en contacto contigo a través de WhatsApp o correo en menos de 24 horas.
+            <p style={{ fontSize: '14px', color: '#64748B', lineHeight: 1.6, marginBottom: '16px' }}>
+              Gracias <strong>{formData.nombre}</strong>. Tu solicitud ha sido enviada con éxito al equipo para coordinar la demo de <strong>{formData.empresa || 'tu tienda'}</strong>.
             </p>
+            <div style={{ marginBottom: '20px', padding: '10px 14px', background: '#ECFDF5', borderRadius: '10px', fontSize: '13px', color: '#047857' }}>
+              ¿Deseas atención ahora mismo?{' '}
+              <a href={CONFIG.phoneTel} style={{ color: '#047857', fontWeight: 800, textDecoration: 'underline' }}>
+                Llámanos al {CONFIG.displayPhone}
+              </a>
+            </div>
             <button
               onClick={onClose}
               style={{
@@ -95,6 +109,7 @@ export function DemoModal({ onClose, onSubmitSuccess }) {
                 fontWeight: 700,
                 fontSize: '15px',
                 border: 'none',
+                cursor: 'pointer',
               }}
             >
               Entendido
@@ -121,7 +136,7 @@ export function DemoModal({ onClose, onSubmitSuccess }) {
                 Solicita tu Demo Gratis
               </h3>
             </div>
-            
+
             <p style={{ fontSize: '13px', color: '#64748B', marginBottom: '20px' }}>
               Descubre cómo customizar este chatbot para el stock y catálogo de tu tienda de cómputo.
             </p>
@@ -186,7 +201,7 @@ export function DemoModal({ onClose, onSubmitSuccess }) {
                     required
                     value={formData.telefono}
                     onChange={(e) => setFormData({ ...formData, telefono: e.target.value })}
-                    placeholder="+51 987 654 321"
+                    placeholder="+51 925 304 363"
                     style={{
                       width: '100%',
                       padding: '11px 12px 11px 40px',
@@ -234,7 +249,8 @@ export function DemoModal({ onClose, onSubmitSuccess }) {
                   padding: '14px',
                   borderRadius: '12px',
                   border: 'none',
-                  cursor: 'pointer',
+                  cursor: isSubmitting ? 'not-allowed' : 'pointer',
+                  opacity: isSubmitting ? 0.8 : 1,
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -242,13 +258,46 @@ export function DemoModal({ onClose, onSubmitSuccess }) {
                   boxShadow: '0 4px 16px rgba(0, 102, 255, 0.4)',
                 }}
               >
-                {isSubmitting ? 'Enviando...' : 'Quiero una Demo'}
+                {isSubmitting ? 'Enviando solicitud...' : 'Quiero una Demo'}
                 <Send size={16} />
               </button>
 
               <div style={{ textAlign: 'center', fontSize: '12px', color: '#64748B', marginTop: '4px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px' }}>
                 <Lock size={14} color="#10B981" />
                 Tus datos están protegidos.
+              </div>
+
+              {/* Direct call option in DemoModal */}
+              <div
+                style={{
+                  marginTop: '16px',
+                  paddingTop: '12px',
+                  borderTop: '1px solid #E2E8F0',
+                  textAlign: 'center',
+                }}
+              >
+                <div style={{ fontSize: '12px', color: '#64748B', marginBottom: '6px' }}>
+                  ¿Prefieres llamar directamente para una consulta o demo?
+                </div>
+                <a
+                  href={CONFIG.phoneTel}
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    color: '#15803D',
+                    backgroundColor: '#F0FDF4',
+                    border: '1px solid #86EFAC',
+                    padding: '8px 14px',
+                    borderRadius: '8px',
+                    fontSize: '13px',
+                    fontWeight: 700,
+                    textDecoration: 'none',
+                  }}
+                >
+                  <Phone size={14} />
+                  Llamar a Agentika: {CONFIG.displayPhone}
+                </a>
               </div>
             </form>
           </div>

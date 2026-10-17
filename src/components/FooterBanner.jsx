@@ -1,5 +1,5 @@
 import React from 'react';
-import { Handshake, ArrowRight, Clock, Bot, Heart } from 'lucide-react';
+import { Handshake, ArrowRight, Clock, Bot, Heart, Phone } from 'lucide-react';
 import { CONFIG } from '../config';
 
 export function FooterBanner({ onRequestDemo }) {
@@ -88,6 +88,27 @@ export function FooterBanner({ onRequestDemo }) {
               Solicitar una Demo
               <ArrowRight size={18} />
             </button>
+
+            <a
+              href={CONFIG.phoneTel}
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px',
+                color: '#6EE7B7',
+                fontSize: '14px',
+                fontWeight: 700,
+                textDecoration: 'none',
+                marginTop: '4px',
+                transition: 'color 0.2s ease',
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.color = '#FFFFFF')}
+              onMouseLeave={(e) => (e.currentTarget.style.color = '#6EE7B7')}
+            >
+              <Phone size={15} />
+              Llamar directo: {CONFIG.displayPhone}
+            </a>
+
             <div style={{ fontSize: '12px', color: '#94A3B8', display: 'flex', alignItems: 'center', gap: '6px' }}>
               <Clock size={12} color="#00C8FF" />
               Respuesta en menos de 24 horas
@@ -128,7 +149,21 @@ export function FooterBanner({ onRequestDemo }) {
             </span>
           </div>
 
-          <div style={{ display: 'flex', gap: '20px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '20px', flexWrap: 'wrap' }}>
+            <a
+              href={CONFIG.phoneTel}
+              style={{
+                color: '#34D399',
+                textDecoration: 'none',
+                fontWeight: 700,
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '6px',
+              }}
+            >
+              <Phone size={14} /> Tel: {CONFIG.displayPhone}
+            </a>
+            <span>•</span>
             <span>Especializado en Tiendas de Cómputo & Hardware</span>
             <span>•</span>
             <a href="#formulario-demo" style={{ color: '#38BDF8', textDecoration: 'none' }}>

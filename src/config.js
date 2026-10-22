@@ -15,6 +15,16 @@ export const CONFIG = {
   contactEmail: "contacto@aisalesagent.com",
   leadRecipientEmail: "jldelgadop@gmail.com",
   
+  // Endpoint de integración con el microservicio ms-landing para el chatbot
+  chatbotApiUrl: import.meta.env.VITE_CHATBOT_API_URL || "http://localhost:3002/api/chat/mensaje",
+  chatbotVoiceApiUrl: import.meta.env.VITE_CHATBOT_VOICE_API_URL || "http://localhost:3002/api/chat/voz",
+  chatbotSuggestedQuestions: [
+    "¿Qué es Agentika?",
+    "¿Puede consultar mi stock y precios?",
+    "¿Funciona con WhatsApp?",
+    "¿Cuánto cuesta implementar?",
+  ],
+  
   // Catálogo de productos de muestra para el simulador de chat interactivo
   sampleProducts: [
     {

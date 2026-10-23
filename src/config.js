@@ -15,9 +15,9 @@ export const CONFIG = {
   contactEmail: "contacto@aisalesagent.com",
   leadRecipientEmail: "jldelgadop@gmail.com",
   
-  // Endpoint de integración con el microservicio ms-landing para el chatbot
-  chatbotApiUrl: import.meta.env.VITE_CHATBOT_API_URL || "http://localhost:3002/api/chat/mensaje",
-  chatbotVoiceApiUrl: import.meta.env.VITE_CHATBOT_VOICE_API_URL || "http://localhost:3002/api/chat/voz",
+  // Endpoint de integración con el microservicio ms-landing para el chatbot en Google Cloud Run
+  chatbotApiUrl: import.meta.env.VITE_CHATBOT_API_URL || "https://ms-landing-510854523341.southamerica-west1.run.app/api/chat/mensaje",
+  chatbotVoiceApiUrl: import.meta.env.VITE_CHATBOT_VOICE_API_URL || "https://ms-landing-510854523341.southamerica-west1.run.app/api/chat/voz",
   chatbotSuggestedQuestions: [
     "¿Qué es Agentika?",
     "¿Puede consultar mi stock y precios?",

@@ -2,7 +2,7 @@ import { CONFIG } from '../config';
 
 /**
  * Servicio para comunicar el chatbot web con el microservicio ms-landing
- * Endpoint: POST http://localhost:3002/api/chat/mensaje
+ * Endpoint: POST https://ms-landing-510854523341.southamerica-west1.run.app/api/chat/mensaje
  * Payload: { "pregunta": string }
  */
 export async function sendChatMessage(pregunta) {
@@ -10,7 +10,7 @@ export async function sendChatMessage(pregunta) {
     throw new Error('La pregunta no puede estar vacía.');
   }
 
-  const endpoint = CONFIG.chatbotApiUrl || 'http://localhost:3002/api/chat/mensaje';
+  const endpoint = CONFIG.chatbotApiUrl || 'https://ms-landing-510854523341.southamerica-west1.run.app/api/chat/mensaje';
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 segundos timeout
 
@@ -51,11 +51,11 @@ export async function sendChatMessage(pregunta) {
       };
     }
 
-    // Error de conexión típica cuando el backend no está encendido o problema de red
+    // Error de conexión típica cuando el backend no responde o problema de red
     if (error.message.includes('Failed to fetch') || error.message.includes('NetworkError')) {
       return {
         success: false,
-        error: 'No se pudo conectar con ms-landing en http://localhost:3002. Asegúrate de que el microservicio esté en ejecución.',
+        error: 'No se pudo conectar con el microservicio del chatbot. Por favor verifica tu conexión o intenta más tarde.',
       };
     }
 
@@ -92,7 +92,7 @@ export async function fetchChatMessageVoice(texto) {
     };
   }
 
-  const endpoint = CONFIG.chatbotVoiceApiUrl || 'http://localhost:3002/api/chat/voz';
+  const endpoint = CONFIG.chatbotVoiceApiUrl || 'https://ms-landing-510854523341.southamerica-west1.run.app/api/chat/voz';
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), 25000); // 25s timeout
 

@@ -7,19 +7,19 @@ export function FAQSection() {
   const faqs = [
     {
       q: "¿Cómo se integra el Agente IA con el inventario de mi tienda?",
-      a: "El Agente IA se puede conectar directamente mediante API a tu sistema ERP/pos, o mediante hojas de cálculo (Google Sheets/Excel) sincronizadas en tiempo real con los precios y stock de tu local.",
+      a: "El Agente IA se podria conectarse directamente mediante API REST a tu sistema ERP/pos(**), o mediante hojas de cálculo (Google Sheets/Excel) sincronizadas en tiempo real con los precios y stock de tu local.",
     },
     {
       q: "¿Demora mucho implementar el chatbot customizado para mi negocio?",
-      a: "No. El proceso de consultoría e integración inicial suele tomar entre 3 a 7 días hábiles, donde dejamos el chatbot 100% entrenado con tu catálogo y listo para operar.",
+      a: "No. El proceso de consultoría Diagnostico inicial suele tomar entre 2 a 5 días hábiles, donde se define las funcionalidades a realizar y el tiempo estimado de finalización",
     },
     {
       q: "¿Puede atender por WhatsApp y en mi sitio web al mismo tiempo?",
-      a: "¡Sí! El mismo Agente IA centralizado atiende en tu canal de WhatsApp Business, web e-commerce y redes sociales sin costo ni esfuerzo adicional.",
+      a: "¡Sí! El mismo Agente IA centralizado podria atiende en tu canal de web e-commerce y/o WhatsApp Business, va depender de la necesidad del cliente",
     },
     {
       q: "¿Qué sucede si un cliente hace una consulta técnica muy específica?",
-      a: "Si la consulta excede la configuración del chatbot o se requiere una negociación especial, el agente deriva la conversación automáticamente a un asesor humano de tu equipo con todo el resumen del chat.",
+      a: "Si la consulta excede la configuración del chatbot o se requiere una negociación especial, el agente deriva la conversación por correo a un asesor humano de tu equipo con todo el resumen del chat.",
     },
     {
       q: "¿Puedo personalizar el tono y las promociones de mi tienda?",
@@ -27,7 +27,7 @@ export function FAQSection() {
     },
     {
       q: "¿Cómo funciona la sesión de consultoría que solicito en la demo?",
-      a: "En la sesión revisamos la estructura actual de tu catálogo, tus canales de venta principales y te mostramos en vivo cómo el Agente IA respondería a las preguntas de tus clientes reales.",
+      a: "En la sesión revisamos  y le mostramos en vivo cómo el Agente IA respondería a las preguntas de tus clientes ",
     },
   ];
 

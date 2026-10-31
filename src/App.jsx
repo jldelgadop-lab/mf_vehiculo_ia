@@ -5,7 +5,6 @@ import { Header } from './components/Header';
 import { Hero } from './components/Hero';
 import { HowItWorks } from './components/HowItWorks';
 import { HardwareCategories } from './components/HardwareCategories';
-import { InteractiveDemo } from './components/InteractiveDemo';
 import { UseCases } from './components/UseCases';
 import { FAQSection } from './components/FAQSection';
 import { FooterBanner } from './components/FooterBanner';
@@ -80,10 +79,7 @@ export function App() {
         {/* Section 3: Hardware Categories Showcase */}
         <HardwareCategories />
 
-        {/* Section 4: Real-time Live Interactive Chat Simulator */}
-        <InteractiveDemo onRequestDemo={handleOpenDemoModal} />
-
-        {/* Section 5: Key Use Cases & Benefits for Hardware Retailers */}
+        {/* Section 4: Key Use Cases & Benefits for Hardware Retailers */}
         <UseCases onRequestDemo={handleOpenDemoModal} />
 
         {/* Section 6: FAQ Section */}

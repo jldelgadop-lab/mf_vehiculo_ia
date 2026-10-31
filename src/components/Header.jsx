@@ -112,7 +112,6 @@ export function Header({ onRequestDemo }) {
             { label: 'Cómo funciona', id: 'como-funciona' },
             { label: 'Casos de uso', id: 'casos-de-uso' },
             { label: 'Preguntas frecuentes', id: 'faq' },
-            { label: 'Simulador IA', id: 'simulador' },
           ].map((item) => (
             <button
               key={item.id}
@@ -259,7 +258,6 @@ export function Header({ onRequestDemo }) {
             { label: 'Cómo funciona', id: 'como-funciona' },
             { label: 'Casos de uso', id: 'casos-de-uso' },
             { label: 'Preguntas frecuentes', id: 'faq' },
-            { label: 'Simulador IA', id: 'simulador' },
           ].map((item) => (
             <button
               key={item.id}

@@ -6,8 +6,9 @@ import {
 import confetti from 'canvas-confetti';
 import { CONFIG } from '../config';
 import { sendLeadEmail } from '../services/leadService';
+import { VideoDemoModal } from './VideoDemoModal';
 
-export function Hero({ youtubeUrl, onChangeYoutubeUrl, onSubmitFormSuccess }) {
+export function Hero({ youtubeUrl, onChangeYoutubeUrl, onOpenVideoDemo, onSubmitFormSuccess }) {
   const [formData, setFormData] = useState({
     nombre: '',
     email: '',
@@ -16,12 +17,21 @@ export function Hero({ youtubeUrl, onChangeYoutubeUrl, onSubmitFormSuccess }) {
   });
 
   const [isPlaying, setIsPlaying] = useState(false);
+  const [showVideoDemoLocal, setShowVideoDemoLocal] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
+  const handleOpenVideo = () => {
+    if (onOpenVideoDemo) {
+      onOpenVideoDemo();
+    } else {
+      setShowVideoDemoLocal(true);
+    }
+  };
+
   // Convert normal YouTube URL to Embed format if needed
   const getEmbedUrl = (url) => {
-    if (!url) return 'https://www.youtube.com/embed/dQw4w9WgXcQ';
+    if (!url) return 'https://www.youtube.com/embed/ACqPtSAHh5Y?autoplay=1';
     if (url.includes('embed/')) return url;
 
     // Handle standard youtube links
@@ -513,7 +523,7 @@ export function Hero({ youtubeUrl, onChangeYoutubeUrl, onSubmitFormSuccess }) {
 
                   {/* Central Big Red Play Button */}
                   <button
-                    onClick={() => setIsPlaying(true)}
+                    onClick={handleOpenVideo}
                     style={{
                       position: 'absolute',
                       top: '50%',
@@ -548,6 +558,7 @@ export function Hero({ youtubeUrl, onChangeYoutubeUrl, onSubmitFormSuccess }) {
 
                   {/* Bottom Video Timeline Mock */}
                   <div
+                    onClick={handleOpenVideo}
                     style={{
                       position: 'relative',
                       zIndex: 3,
@@ -559,6 +570,7 @@ export function Hero({ youtubeUrl, onChangeYoutubeUrl, onSubmitFormSuccess }) {
                       borderRadius: '10px',
                       fontSize: '11px',
                       color: '#94A3B8',
+                      cursor: 'pointer',
                     }}
                   >
                     <Play size={14} color="#FFF" />
@@ -936,6 +948,15 @@ export function Hero({ youtubeUrl, onChangeYoutubeUrl, onSubmitFormSuccess }) {
           }
         }
       `}</style>
+
+      {/* Fallback modal if used standalone without onOpenVideoDemo */}
+      {!onOpenVideoDemo && showVideoDemoLocal && (
+        <VideoDemoModal
+          isOpen={showVideoDemoLocal}
+          videoUrl={youtubeUrl}
+          onClose={() => setShowVideoDemoLocal(false)}
+        />
+      )}
     </section>
   );
 }

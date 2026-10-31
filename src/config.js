@@ -6,7 +6,7 @@ export const CONFIG = {
   // URL por defecto de YouTube para el video de demostración.
   // Puede ser una URL estándar (https://www.youtube.com/watch?v=...) o formato embed (https://www.youtube.com/embed/...)
   // El cliente podrá actualizar esta URL fácilmente desde la interfaz o en este archivo.
-  defaultYoutubeUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=0", 
+  defaultYoutubeUrl: "https://youtu.be/ACqPtSAHh5Y", 
 
   contactPhone: "+51 925 304 363",
   displayPhone: "925 304 363",

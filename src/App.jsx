@@ -11,12 +11,14 @@ import { FAQSection } from './components/FAQSection';
 import { FooterBanner } from './components/FooterBanner';
 import { VideoUrlModal } from './components/VideoUrlModal';
 import { DemoModal } from './components/DemoModal';
+import { VideoDemoModal } from './components/VideoDemoModal';
 import { FloatingChatbot } from './components/FloatingChatbot';
 
 export function App() {
-  const [youtubeUrl, setYoutubeUrl] = useState(CONFIG.defaultYoutubeUrl);
+  const [youtubeUrl, setYoutubeUrl] = useState(CONFIG.defaultYoutubeUrl || 'https://youtu.be/ACqPtSAHh5Y');
   const [showVideoModal, setShowVideoModal] = useState(false);
   const [showDemoModal, setShowDemoModal] = useState(false);
+  const [showVideoDemoModal, setShowVideoDemoModal] = useState(false);
   const [toastMessage, setToastMessage] = useState(null);
 
   const showToast = (msg) => {
@@ -68,6 +70,7 @@ export function App() {
         <Hero
           youtubeUrl={youtubeUrl}
           onChangeYoutubeUrl={() => setShowVideoModal(true)}
+          onOpenVideoDemo={() => setShowVideoDemoModal(true)}
           onSubmitFormSuccess={handleFormSubmitSuccess}
         />
 
@@ -107,6 +110,16 @@ export function App() {
         <DemoModal
           onClose={() => setShowDemoModal(false)}
           onSubmitSuccess={handleFormSubmitSuccess}
+        />
+      )}
+
+      {/* Modal: Video Demo Player Popup */}
+      {showVideoDemoModal && (
+        <VideoDemoModal
+          isOpen={showVideoDemoModal}
+          videoUrl={youtubeUrl}
+          onClose={() => setShowVideoDemoModal(false)}
+          onRequestDemo={handleOpenDemoModal}
         />
       )}
 
